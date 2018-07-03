@@ -1,7 +1,7 @@
 {
-  "name": "tablegames",
+  "name": "typescript-electron-react-redux-boilerplate",
   "version": "0.0.1",
-  "description": "Play table top games online with friends on this native desktop application",
+  "description": "boilerplate for this stack",
   "main": "./dist/main.bundle.js",
   "author": "James Jackson",
   "license": "MIT",
