@@ -7,6 +7,8 @@ import chalk from 'chalk';
 import './ipcs';
 import { ApplicationState } from '../renderer/store';
 
+const username = '';
+
 let mainWindow: Electron.BrowserWindow;
 export const electronStore = new Store();
 
@@ -53,7 +55,7 @@ app.on('ready', createWindow);
 
 app.on('ready', () => {
     BrowserWindow.addDevToolsExtension(
-        "C:\\Users\\jimmy\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\3.2.3_0");
+        `C:\\Users\\${username}\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\3.2.3_0`);
     [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS].forEach(extension => {
         installExtension(extension)
             .then((name) => console.log(ctx.blue('Added Extension: ', name)))
