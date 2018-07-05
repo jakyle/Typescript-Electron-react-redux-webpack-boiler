@@ -9,11 +9,31 @@
   "scripts": {
     "start": "electron ./dist/main.bundle.js",
     "development": "rimraf dist && webpack --watch --config ./webpack.dev.js --progress --colors",
-    "production": "rimraf dist && webpack --config ./webpack.prod.js --progress --colors"
+    "production": "rimraf dist && webpack --config ./webpack.prod.js --progress --colors",
+    "test": "jest --colors --watch"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?|ts?|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}"
+    ]
   },
   "devDependencies": {
     "@types/electron-devtools-installer": "^2.0.3",
     "@types/electron-store": "^1.3.0",
+    "@types/jest": "^23.1.4",
     "@types/react": "^16.4.6",
     "@types/react-dom": "^16.0.6",
     "@types/react-redux": "^6.0.3",
@@ -23,11 +43,13 @@
     "electron-devtools-installer": "^2.2.4",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
+    "jest": "^23.2.0",
     "node-sass": "^4.9.0",
     "redux-devtools-extension": "^2.13.5",
     "rimraf": "^2.6.2",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
+    "ts-jest": "^23.0.0",
     "ts-loader": "^4.4.2",
     "ts-node": "^7.0.0",
     "typescript": "^2.9.2",
@@ -40,6 +62,8 @@
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "redux-saga": "^0.16.0"
+    "redux-observable": "^1.0.0",
+    "redux-saga": "^0.16.0",
+    "rxjs": "^6.2.1"
   }
 }

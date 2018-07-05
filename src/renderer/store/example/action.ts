@@ -14,53 +14,54 @@ import {
   MessageCallSuccess,
   MessageCallFail,
 } from './types';
+import Message from '../../../shared/models/message';
 
 // I like to pass in empty objects as payloads in case I end up changing the definition for
 // my actions.  if I do this the payload section will be clear to me what its for, any
 // parameters that I pass into the function will be ultimately passed into the payload
 // property of this object.
-export const incrementNumber: ActionCreator<IncrementNumber> = () => ({
+export const incrementNumber = (): IncrementNumber => ({
   type: types.INCREMENT_NUMBER,
   payload: { },
 });
 
-export const decrementNumber: ActionCreator<DecrementNumber> = () => ({
+export const decrementNumber = (): DecrementNumber => ({
   type: types.DECREMENT_NUMBER,
   payload: { },
 });
 
-export const apiCallRequest: ActionCreator<ApiCallRequest> = () => ({
+export const apiCallRequest = (): ApiCallRequest => ({
   type: types.API_CALL_REQUEST,
   payload: { },
 });
 
-export const apiCallSuccess: ActionCreator<ApiCallSuccess> = (dog: string) => ({
+export const apiCallSuccess = (dog: string): ApiCallSuccess => ({
   type: types.API_CALL_SUCCESS,
   payload: { 
     dog 
   },
 });
 
-export const apiCallFail: ActionCreator<ApiCallFail> = (error: string) => ({
+export const apiCallFail = (error: string): ApiCallFail => ({
   type: types.API_CALL_FAIL,
   payload: { 
     error 
   }
 });
 
-export const messageCallRequest: ActionCreator<MessageCallRequest> = () => ({
+export const messageCallRequest = (): MessageCallRequest => ({
   type: types.MESSAGE_CALL_REQUEST,
   payload: { }
 });
 
-export const messageCallSuccess: ActionCreator<MessageCallSuccess> = (message: string) => ({
+export const messageCallSuccess = (message: Message): MessageCallSuccess => ({
   type: types.MESSAGE_CALL_SUCCESS,
   payload: { 
     message
   }
 });
 
-export const messageCallFail: ActionCreator<MessageCallFail> = (error: any) => ({
+export const messageCallFail = (error: any): MessageCallFail => ({
   type: types.MESSAGE_CALL_FAIL,
   payload: {
     error

@@ -9994,6 +9994,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// jimmy : James' path
+const username = '';
 let mainWindow;
 const electronStore = new electron_store__WEBPACK_IMPORTED_MODULE_2___default.a();
 const ctx = new chalk__WEBPACK_IMPORTED_MODULE_5___default.a.constructor({ enabled: true, level: 3 });
@@ -10028,7 +10030,7 @@ function createWindow() {
 }
 electron__WEBPACK_IMPORTED_MODULE_0__["app"].on('ready', createWindow);
 electron__WEBPACK_IMPORTED_MODULE_0__["app"].on('ready', () => {
-    electron__WEBPACK_IMPORTED_MODULE_0__["BrowserWindow"].addDevToolsExtension("C:\\Users\\jimmy\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\3.2.3_0");
+    electron__WEBPACK_IMPORTED_MODULE_0__["BrowserWindow"].addDevToolsExtension(`C:\\Users\\${username}\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\3.2.3_0`);
     [electron_devtools_installer__WEBPACK_IMPORTED_MODULE_1__["REACT_DEVELOPER_TOOLS"], electron_devtools_installer__WEBPACK_IMPORTED_MODULE_1__["REDUX_DEVTOOLS"]].forEach(extension => {
         electron_devtools_installer__WEBPACK_IMPORTED_MODULE_1___default()(extension)
             .then((name) => console.log(ctx.blue('Added Extension: ', name)))

@@ -7,6 +7,7 @@ import chalk from 'chalk';
 import './ipcs';
 import { ApplicationState } from '../renderer/store';
 
+// jimmy : James' path
 const username = '';
 
 let mainWindow: Electron.BrowserWindow;

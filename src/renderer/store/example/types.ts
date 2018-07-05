@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import Message from '../../../models/message';
+import Message from '../../../shared/models/message';
 
 // all of my types for Cart action/reducer
 export enum types {
@@ -10,7 +10,8 @@ export enum types {
   API_CALL_FAIL = '@@example/API_CALL_FAIL',
   MESSAGE_CALL_REQUEST = '@@example/MESSAGE_CALL_REQUEST',
   MESSAGE_CALL_SUCCESS = '@@example/MESSAGE_CALL_SUCCESS',
-  MESSAGE_CALL_FAIL = '@@example/MESSAGE_CALL_FAIL'
+  MESSAGE_CALL_FAIL = '@@example/MESSAGE_CALL_FAIL',
+  DEFAULT = '@@default/DEFAULT',
 }
 // interfaces for actions, notice that I am importing Actions from redux, this is just
 // extra boilerplate to help keep my code extra typesafe.
@@ -51,7 +52,11 @@ export interface MessageCallRequest extends Action {
 export interface MessageCallSuccess extends Action {
   type: types.MESSAGE_CALL_SUCCESS;
   payload: { 
-    message: string
+    message: {
+      content: string
+      sender: string
+      isSent:  boolean
+    }
   }
 }
 

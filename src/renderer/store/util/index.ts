@@ -1,2 +1,1 @@
-import { updateObject } from './util';
-export { updateObject };
+export { updateObject } from './util';

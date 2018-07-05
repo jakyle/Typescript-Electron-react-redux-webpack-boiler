@@ -2,11 +2,10 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './containers/app';
 import { Provider } from 'react-redux'
-import { store, sagaMiddleware, rootSaga } from './store';
+import { store, epicMiddleware, rootEpic } from './store';
 import './style.scss';
-import { ipcRenderer, Event } from 'electron';
 
-sagaMiddleware.run(rootSaga);
+epicMiddleware.run(rootEpic);
 
 const app = <Provider store={store}><App /></Provider>
 

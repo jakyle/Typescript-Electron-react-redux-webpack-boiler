@@ -27,13 +27,13 @@ const initialState: ExampleState = {
   messageError: '',
 };
 
-const apiCallRequest = (state: ExampleState, action: ApiCallRequest): ExampleState => {
+export const apiCallRequest = (state: ExampleState, action: ApiCallRequest): ExampleState => {
   return updateObject(state, { 
     fetching: true 
   });
 };
 
-const apiCallSuccess = (state: ExampleState, action: ApiCallSuccess): ExampleState => {
+export const apiCallSuccess = (state: ExampleState, action: ApiCallSuccess): ExampleState => {
   return updateObject(state, { 
     dog: action.payload.dog, 
     apiError: '', 
@@ -41,7 +41,7 @@ const apiCallSuccess = (state: ExampleState, action: ApiCallSuccess): ExampleSta
   })
 };
 
-const apiCallFail = (state: ExampleState, action: ApiCallFail): ExampleState => {
+export const apiCallFail = (state: ExampleState, action: ApiCallFail): ExampleState => {
   return updateObject(state, {
     apiError: action.payload.error, 
     dog: '', 
@@ -49,13 +49,13 @@ const apiCallFail = (state: ExampleState, action: ApiCallFail): ExampleState => 
   })
 };
 
-const incrementNumber = (state: ExampleState, action: IncrementNumber): ExampleState => { 
+export const incrementNumber = (state: ExampleState, action: IncrementNumber): ExampleState => { 
   return updateObject(state, { 
     number: state.number + 1 
   })
 };
 
-const decrementNumber = (state: ExampleState, action: DecrementNumber): ExampleState => {
+export const decrementNumber = (state: ExampleState, action: DecrementNumber): ExampleState => {
   if(state.number == 0) {
     return updateObject(state, { 
       number: state.number 
@@ -66,29 +66,39 @@ const decrementNumber = (state: ExampleState, action: DecrementNumber): ExampleS
   })
 };
 
-const messageCallRequest = (state: ExampleState, action: MessageCallRequest): ExampleState => {
+export const messageCallRequest = (state: ExampleState, action: MessageCallRequest): ExampleState => {
   return updateObject(state, {
     fetching: true,
   })
 }
 
-const messageCallSuccess = (state: ExampleState, action: MessageCallSuccess): ExampleState => {
+export const messageCallSuccess = (state: ExampleState, action: MessageCallSuccess): ExampleState => {
+  const {message} = action.payload;
   return updateObject(state, {
     fetching: false,
-    message: action.payload.message,
+    message: updateObject(state.message, {
+      content: message.content, 
+      sender: message.sender , 
+      isSent: message.isSent 
+    }),
     messageError: ''
   })
 }
 
-const messageCallFail = (state: ExampleState, action: MessageCallFail): ExampleState => {
+export const messageCallFail = (state: ExampleState, action: MessageCallFail): ExampleState => {
+
   return updateObject(state, {
     fetching: false,
     messageError: action.payload.error,
-    message: '',
+    message: updateObject(state.message, {
+      content: '', 
+      sender: '' , 
+      isSent: false 
+    }) ,
   })
 }
 
-const reducer: Reducer<ExampleState> = (state: ExampleState = initialState, action: ExampleActions) => {
+export const reducer: Reducer<ExampleState> = (state: ExampleState = initialState, action: ExampleActions) => {
   switch (action.type) {
     case types.INCREMENT_NUMBER: return incrementNumber(state, action);
     case types.DECREMENT_NUMBER: return decrementNumber(state, action);

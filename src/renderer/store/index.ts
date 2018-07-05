@@ -8,23 +8,31 @@ import createSagaMiddleware  from "redux-saga";
 import exampleReducer  from './example/reducer';
 import { ExampleState } from './example/types';
 import { all } from 'redux-saga/effects';
-import { requestDogSaga, requestMessageSaga } from './example/saga';
+import { watchDogSaga, watchMessageSaga, fetchDogEpic, fetchMessageEpic } from './example/epic';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { ipcRenderer, Event } from 'electron';
+import { combineEpics } from 'redux-observable';
+import { createEpicMiddleware } from 'redux-observable';
 
+export const epicMiddleware = createEpicMiddleware ();
 export const sagaMiddleware = createSagaMiddleware();
 
 export interface ApplicationState {
   example: ExampleState;
 }
+
+export const rootEpic = combineEpics(
+  fetchDogEpic,
+  fetchMessageEpic,
+)
 export const rootReducer = combineReducers<ApplicationState>({
   example: exampleReducer
 });
 
 export function* rootSaga() {
   yield all([
-    requestDogSaga(),
-    requestMessageSaga(),
+    watchDogSaga(),
+    watchMessageSaga(),
   ])
 }
 
@@ -46,7 +54,7 @@ let initialState: ApplicationState;
 export const store: Store<ApplicationState> = createStore(
   rootReducer, 
   initialState, 
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
+  composeWithDevTools(applyMiddleware(epicMiddleware))
 );
 
 ipcRenderer.on('request-state', (event: Event) => {
