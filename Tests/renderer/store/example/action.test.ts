@@ -1,6 +1,6 @@
 import * as actions from "../../../../src/renderer/store/example/action";
 import { types } from "../../../../src/renderer/store/example/types";
-import Message from "../../../../src/models/message";
+import Message from "../../../../src/shared/models/message";
 
 describe('example actions', () => {
   it('should create an action to increment a number', () => {

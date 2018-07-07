@@ -1,8 +1,11 @@
 import { Action } from 'redux';
 import Message from '../../../shared/models/message';
 
-// all of my types for Cart action/reducer
 export enum types {
+  SAVE_STATE_POST = '@@example/SAVE_STATE_POST',
+  INITIAL_STATE_REQUEST = '@@example/INITIAL_STATE_REQUEST',
+  INITIAL_STATE_SUCCESS = '@@example/INITIAL_STATE_SUCCESS',
+  INTIIAL_STATE_FAIL = '@@example/INITIAL_STATE_FAIL',
   INCREMENT_NUMBER = '@@example/INCREMENT_NUMBER',
   DECREMENT_NUMBER = '@@example/DECREMENT_NUMBER',
   API_CALL_REQUEST = '@@example/API_CALL_REQUEST',
@@ -13,8 +16,29 @@ export enum types {
   MESSAGE_CALL_FAIL = '@@example/MESSAGE_CALL_FAIL',
   DEFAULT = '@@default/DEFAULT',
 }
-// interfaces for actions, notice that I am importing Actions from redux, this is just
-// extra boilerplate to help keep my code extra typesafe.
+
+export interface SaveStatePost extends Action {
+  type: types.SAVE_STATE_POST;
+  payload: { };
+}
+
+export interface InitialStateRequest extends Action {
+  type: types.INITIAL_STATE_REQUEST;
+  payload: { };
+}
+export interface InitialStateSuccess extends Action {
+  type: types.INITIAL_STATE_SUCCESS;
+  payload: { 
+    state: ExampleState
+  };
+}
+
+export interface InitialStateFail extends Action {
+  type: types.INTIIAL_STATE_FAIL;
+  payload: {
+    error: any
+  }
+}
 export interface IncrementNumber extends Action {
   type: types.INCREMENT_NUMBER;
   payload: { };
@@ -52,11 +76,7 @@ export interface MessageCallRequest extends Action {
 export interface MessageCallSuccess extends Action {
   type: types.MESSAGE_CALL_SUCCESS;
   payload: { 
-    message: {
-      content: string
-      sender: string
-      isSent:  boolean
-    }
+    message: Message
   }
 }
 
@@ -67,9 +87,11 @@ export interface MessageCallFail extends Action {
   }
 }
 
-
-// this is my board action, this will be exported to my reducers for the switch statement.
 export type ExampleActions =
+  | SaveStatePost
+  | InitialStateRequest
+  | InitialStateSuccess
+  | InitialStateFail
   | IncrementNumber
   | DecrementNumber
   | ApiCallRequest
@@ -79,8 +101,6 @@ export type ExampleActions =
   | MessageCallSuccess
   | MessageCallFail
 
-// this is the contract for my Carts state, the initial state
-// will be defined in the actual reducer.
 export interface ExampleState {
   number: number
   apiError: string
@@ -88,4 +108,5 @@ export interface ExampleState {
   message: Message
   messageError: any
   fetching: boolean
+  fetchingStateError: any
 }

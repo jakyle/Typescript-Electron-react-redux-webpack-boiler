@@ -6,9 +6,10 @@ import * as url from 'url';
 import chalk from 'chalk';
 import './ipcs';
 import { ApplicationState } from '../renderer/store';
+import { ExampleState } from '../renderer/store/example/types';
 
 // jimmy : James' path
-const username = '';
+const username = 'jimmy';
 
 let mainWindow: Electron.BrowserWindow;
 export const electronStore = new Store();
@@ -35,13 +36,6 @@ function createWindow() {
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
-
-    mainWindow.on('close', () => {
-        mainWindow.webContents.send('request-state');
-        ipcMain.on('response-state', (event: Event, state: ApplicationState ) => {
-            electronStore.set('app-state', state)
-        })
-    })
 
     // Emitted when the window is closed.
     mainWindow.on('closed', () => {

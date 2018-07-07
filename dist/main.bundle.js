@@ -9903,35 +9903,6 @@ function writeFileSync (filename, data, options) {
 
 /***/ }),
 
-/***/ "./src/main/initialState.ts":
-/*!**********************************!*\
-  !*** ./src/main/initialState.ts ***!
-  \**********************************/
-/*! exports provided: defaultState, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultState", function() { return defaultState; });
-const defaultState = {
-    example: {
-        number: 0,
-        apiError: '',
-        dog: '',
-        message: {
-            content: '',
-            sender: '',
-            isSent: false
-        },
-        messageError: '',
-        fetching: false
-    }
-};
-/* harmony default export */ __webpack_exports__["default"] = (defaultState);
-
-
-/***/ }),
-
 /***/ "./src/main/ipcs.ts":
 /*!**************************!*\
   !*** ./src/main/ipcs.ts ***!
@@ -9944,21 +9915,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var electron__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! electron */ "electron");
 /* harmony import */ var electron__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(electron__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main */ "./src/main/main.ts");
-/* harmony import */ var _initialState__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./initialState */ "./src/main/initialState.ts");
-
 
 
 electron__WEBPACK_IMPORTED_MODULE_0__["ipcMain"].on('async-message', (event) => {
-    const message = {
-        content: 'suh dude',
-        sender: 'Jimmy',
-        isSent: true
-    };
-    event.sender.send('async-reply', message);
+    const messages = [
+        {
+            content: 'hey man whats up',
+            sender: 'mr. sender',
+            isSent: true,
+        },
+        {
+            content: 'did you know tee hee?',
+            sender: 'curious boy',
+            isSent: true,
+        },
+        {
+            content: 'suh dude',
+            sender: 'Jimmy',
+            isSent: true
+        }
+    ];
+    event.sender.send('async-reply', messages[Math.floor(Math.random() * messages.length)]);
 });
 electron__WEBPACK_IMPORTED_MODULE_0__["ipcMain"].on('saved-state', (event) => {
-    const state = _main__WEBPACK_IMPORTED_MODULE_1__["electronStore"].get('app-state', _initialState__WEBPACK_IMPORTED_MODULE_2__["defaultState"]);
+    const state = _main__WEBPACK_IMPORTED_MODULE_1__["electronStore"].get('example-state');
     event.sender.send('state-reply', state);
+});
+electron__WEBPACK_IMPORTED_MODULE_0__["ipcMain"].on('post-state', (event, state) => {
+    _main__WEBPACK_IMPORTED_MODULE_1__["electronStore"].set('example-state', state);
 });
 
 
@@ -9995,7 +9979,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // jimmy : James' path
-const username = '';
+const username = 'jimmy';
 let mainWindow;
 const electronStore = new electron_store__WEBPACK_IMPORTED_MODULE_2___default.a();
 const ctx = new chalk__WEBPACK_IMPORTED_MODULE_5___default.a.constructor({ enabled: true, level: 3 });
@@ -10014,12 +9998,6 @@ function createWindow() {
     }));
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
-    mainWindow.on('close', () => {
-        mainWindow.webContents.send('request-state');
-        electron__WEBPACK_IMPORTED_MODULE_0__["ipcMain"].on('response-state', (event, state) => {
-            electronStore.set('app-state', state);
-        });
-    });
     // Emitted when the window is closed.
     mainWindow.on('closed', () => {
         // Dereference the window object, usually you would store windows

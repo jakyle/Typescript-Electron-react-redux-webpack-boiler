@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { ipcRenderer, Event } from 'electron';
-import Message from '../../models/message';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../store';
 import { Dispatch } from 'redux';
 import { ExampleActions } from '../store/example/types';
-import { incrementNumber, decrementNumber, apiCallRequest, messageCallRequest } from '../store/example/action';
+import { incrementNumber, decrementNumber, apiCallRequest, messageCallRequest, initialStateRequest, saveStatePost } from '../store/example/action';
 import logo from '../../assets/images/logo.png';
+import Message from '../../shared/models/message';
 
 interface AppProps { };
 interface StoreProps {
@@ -23,6 +22,8 @@ interface ConnectedStates {
   onDecrementNumber: () => void;
   onRequestDog: () => void;
   onRequestMessage: () => void;
+  onRequestInitialState: () => void;
+  onSaveStatePost: () => void;
 }
 
 type AllAppProps = AppProps & StoreProps & ConnectedStates
@@ -39,6 +40,21 @@ class App extends React.Component<AllAppProps, AppState> {
       content: '',
       isSent: false
     } 
+  }
+
+
+  public componentDidMount() {
+    window.addEventListener('beforeunload', this.handleUnload)
+    this.props.onRequestInitialState();
+  }
+
+  public componentWillUnmount() {
+    this.handleUnload();
+    window.removeEventListener('beforeunload', this.handleUnload)
+  }
+
+  public handleUnload = () => {
+    this.props.onSaveStatePost();
   }
 
   public handleIncrementButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -67,7 +83,7 @@ class App extends React.Component<AllAppProps, AppState> {
     
     return (
       <div className="App">
-        <img src={dog ? dog : logo}/> 
+        <img src={dog ? dog : logo} height={100} width={150}/> 
         {dog ? (
           <p className="App-intro">Keep clicking for new dogs</p>
         ) : (
@@ -87,14 +103,12 @@ class App extends React.Component<AllAppProps, AppState> {
           <button onClick={this.handleDecrementButtonClick}>Decrement</button>  
         </div>
         <h1>{number}</h1>
-        <button onClick={this.handleMessageButtonClick}>Get Message</button>
         {message.content ? <h1>{message.content}</h1> : null}
+        <button onClick={this.handleMessageButtonClick}>Get Message</button>
       </div>
     );
   }
 }
-
-
 
 const mapStateToProps = (state: ApplicationState): StoreProps => {
   const { number, dog, fetching, apiError, message, messageError } = state.example;
@@ -107,6 +121,8 @@ const mapDispatchToProps = (dispatch: Dispatch<ExampleActions>): ConnectedStates
     onDecrementNumber: () => dispatch(decrementNumber()),
     onRequestDog: () => dispatch(apiCallRequest()),
     onRequestMessage: () => dispatch(messageCallRequest()),
+    onRequestInitialState: () => dispatch(initialStateRequest()),
+    onSaveStatePost: () => dispatch(saveStatePost())
   };
 };
 

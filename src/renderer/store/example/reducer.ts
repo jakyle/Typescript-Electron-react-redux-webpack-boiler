@@ -10,7 +10,10 @@ import {
   ApiCallRequest, 
   MessageCallRequest,
   MessageCallSuccess,
-  MessageCallFail
+  MessageCallFail,
+  InitialStateRequest,
+  InitialStateSuccess,
+  InitialStateFail,
 } from './types';
 import { updateObject } from '../util';
 
@@ -25,8 +28,30 @@ const initialState: ExampleState = {
     isSent: false,
   },
   messageError: '',
+  fetchingStateError: {}
 };
 
+export const initialStateRequest = (state: ExampleState, action: InitialStateRequest): ExampleState => {
+  return updateObject(state, {
+    fetching: true
+  })
+}
+
+export const initialStateSuccess = (state: ExampleState, action: InitialStateSuccess): ExampleState => {
+  return updateObject(state, {
+    ...action.payload.state,
+    fetching: false,
+    message: {
+      ...action.payload.state.message
+    }
+  })
+}
+
+export const initialStateFail = (state: ExampleState, action: InitialStateFail): ExampleState => {
+  return updateObject(state, {
+    fetchingStateError: action.payload.error
+  })
+}
 export const apiCallRequest = (state: ExampleState, action: ApiCallRequest): ExampleState => {
   return updateObject(state, { 
     fetching: true 
@@ -73,20 +98,16 @@ export const messageCallRequest = (state: ExampleState, action: MessageCallReque
 }
 
 export const messageCallSuccess = (state: ExampleState, action: MessageCallSuccess): ExampleState => {
-  const {message} = action.payload;
   return updateObject(state, {
     fetching: false,
     message: updateObject(state.message, {
-      content: message.content, 
-      sender: message.sender , 
-      isSent: message.isSent 
+      ...action.payload.message
     }),
     messageError: ''
   })
 }
 
 export const messageCallFail = (state: ExampleState, action: MessageCallFail): ExampleState => {
-
   return updateObject(state, {
     fetching: false,
     messageError: action.payload.error,
@@ -94,12 +115,16 @@ export const messageCallFail = (state: ExampleState, action: MessageCallFail): E
       content: '', 
       sender: '' , 
       isSent: false 
-    }) ,
+    }),
   })
 }
 
 export const reducer: Reducer<ExampleState> = (state: ExampleState = initialState, action: ExampleActions) => {
   switch (action.type) {
+    case types.SAVE_STATE_POST: return state;
+    case types.INITIAL_STATE_REQUEST: return initialStateRequest(state, action);
+    case types.INITIAL_STATE_SUCCESS: return initialStateSuccess(state, action);
+    case types.INTIIAL_STATE_FAIL: return initialStateFail(state, action);
     case types.INCREMENT_NUMBER: return incrementNumber(state, action);
     case types.DECREMENT_NUMBER: return decrementNumber(state, action);
     case types.API_CALL_REQUEST: return apiCallRequest(state, action);

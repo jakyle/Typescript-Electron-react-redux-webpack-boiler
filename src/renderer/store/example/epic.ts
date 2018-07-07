@@ -1,48 +1,13 @@
-import {
-  takeLatest,
-  call,
-  put,
-  CallEffect,
-  PutEffect,
-  ForkEffect
-} from "redux-saga/effects";
-
-import { types, ApiCallSuccess, ApiCallFail, ApiCallRequest, MessageCallRequest } from "./types";
+import { types, ApiCallRequest, MessageCallRequest, InitialStateRequest, ExampleState, SaveStatePost } from "./types";
 import Message, { DogData } from "../../../shared/models/message";
 import { apiCallSuccess, apiCallFail, messageCallSuccess, messageCallFail } from "./action";
-import { fetchDog, fetchMessage } from "../../../shared/api/api";
-import {  mergeMap, map, catchError } from 'rxjs/operators';
-import { ofType, ActionsObservable } from 'redux-observable';
+import { fetchDog, fetchMessage, fetchInitialState, postExampleState } from "../../../shared/api/api";
+import {  mergeMap, map, catchError, withLatestFrom } from 'rxjs/operators';
+import { ofType, ActionsObservable, combineEpics, StateObservable } from 'redux-observable';
 import { of } from "rxjs/internal/observable/of";
-import { from } from 'rxjs';
-
-export function* watchDogSaga(): IterableIterator<ForkEffect> {
-  yield takeLatest(types.API_CALL_REQUEST, requestDog);
-};
-
-export function* requestDog(): IterableIterator<CallEffect | PutEffect<ApiCallSuccess> | PutEffect<ApiCallFail>> {
-  try {
-    const res: DogData = yield call(fetchDog); 
-    yield put(apiCallSuccess(res.message));
-  } 
-  catch (error) {
-    yield put(apiCallFail(error))
-  }
-};
-
-export function* watchMessageSaga(): IterableIterator<ForkEffect> {
-  yield takeLatest(types.MESSAGE_CALL_REQUEST, requestMessage)
-};
-
-export function* requestMessage() {
-  try {
-    const message: Message = yield call(fetchMessage);
-    yield put(messageCallSuccess(message))
-  } 
-  catch(error) {
-    yield put(messageCallFail(error));
-  }
-};
+import { from } from 'rxjs/internal/observable/from';
+import { initialStateSuccess } from "./action";
+import { ApplicationState } from "..";
 
 export const fetchDogEpic = (action$: ActionsObservable<ApiCallRequest> ) => action$.pipe(
   ofType(types.API_CALL_REQUEST),
@@ -62,4 +27,29 @@ export const fetchMessageEpic = (action$: ActionsObservable<MessageCallRequest> 
     catchError((err: any) => of(messageCallFail(err)))
     )
   )
+);
+
+export const fetchInitialStateEpic = (action$: ActionsObservable<InitialStateRequest> ) => action$.pipe(
+  ofType(types.INITIAL_STATE_REQUEST),
+  mergeMap(() => 
+    fetchInitialState().pipe(
+      map((res: ExampleState) => initialStateSuccess(res)),
+      catchError((err: any) => of(messageCallFail(err)))
+    )
+  )
+);
+
+export const saveStateEpic = (action$: ActionsObservable<SaveStatePost>, state$: StateObservable<ApplicationState> ) => action$.pipe(
+  ofType(types.SAVE_STATE_POST),
+  withLatestFrom(state$),
+  mergeMap(([action, state]) => 
+    postExampleState(state.example)
+  )
+);
+
+export const exampleEpics = combineEpics(
+  fetchInitialStateEpic,
+  fetchMessageEpic,
+  fetchDogEpic,
+  saveStateEpic
 )

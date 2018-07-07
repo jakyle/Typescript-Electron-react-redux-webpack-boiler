@@ -15,6 +15,7 @@ describe('example reducer', () => {
         isSent: false,
       },
       messageError: '',
+      fetchingStateError:'',
     };
   })
   
@@ -35,6 +36,7 @@ describe('example reducer', () => {
         isSent: false,
       },
       messageError: '',
+      fetchingStateError:'',
     }
     expect(reducers.apiCallRequest(state, action)).toEqual(expectedState);
   });
@@ -58,6 +60,7 @@ describe('example reducer', () => {
         isSent: false,
       },
       messageError: '',
+      fetchingStateError:'',
     }
     expect(reducers.apiCallSuccess(state, action)).toEqual(expectedState);
   });
@@ -81,6 +84,7 @@ describe('example reducer', () => {
         isSent: false,
       },
       messageError: '',
+      fetchingStateError:'',
     }
     expect(reducers.apiCallFail(state, action)).toEqual(expectedState);
   });
@@ -102,6 +106,7 @@ describe('example reducer', () => {
         isSent: false,
       },
       messageError: '',
+      fetchingStateError:'',
     }
     expect(reducers.incrementNumber(state, action)).toEqual(expectedState);
   });
@@ -124,6 +129,7 @@ describe('example reducer', () => {
             isSent: false,
           },
           messageError: '',
+          fetchingStateError:'',
         }
         expect(reducers.decrementNumber(state, action)).toEqual(expectedState);
       })
@@ -145,6 +151,7 @@ describe('example reducer', () => {
             isSent: false,
           },
           messageError: '',
+          fetchingStateError:'',
         };
         const expectedState: ExampleState = {
           number: 0,
@@ -157,6 +164,7 @@ describe('example reducer', () => {
             isSent: false,
           },
           messageError: '',
+          fetchingStateError:'',
         }
         expect(reducers.decrementNumber(state, action)).toEqual(expectedState);
       })
@@ -180,6 +188,7 @@ describe('example reducer', () => {
         isSent: false,
       },
       messageError: '',
+      fetchingStateError:'',
     }
     expect(reducers.messageCallRequest(state, action)).toEqual(expectedState);
   });
@@ -207,6 +216,7 @@ describe('example reducer', () => {
         isSent: true,
       },
       messageError: '',
+      fetchingStateError:'',
     }
     expect(reducers.messageCallSuccess(state, action)).toEqual(expectedState);
   });
@@ -228,6 +238,7 @@ describe('example reducer', () => {
         isSent: false,
       },
       messageError: 'error',
+      fetchingStateError:'',
     }
     expect(reducers.messageCallFail(state, action)).toEqual(expectedState);
   });
@@ -250,6 +261,7 @@ describe('example reducer', () => {
           isSent: false,
         },
         messageError: '',
+        fetchingStateError:'',
       }
       expect(reducers.reducer(state, action)).toEqual(expectedState);
     });
@@ -271,6 +283,7 @@ describe('example reducer', () => {
           isSent: false,
         },
         messageError: '',
+        fetchingStateError:'',
       }
       expect(reducers.reducer(state, action)).toEqual(expectedState);
     });
@@ -292,6 +305,7 @@ describe('example reducer', () => {
           isSent: false,
         },
         messageError: '',
+        fetchingStateError:'',
       }
       expect(reducers.reducer(state, action)).toEqual(expectedState);
     });
@@ -315,6 +329,7 @@ describe('example reducer', () => {
           isSent: false,
         },
         messageError: '',
+        fetchingStateError:'',
       }
       expect(reducers.reducer(state, action)).toEqual(expectedState);
     });
@@ -338,6 +353,7 @@ describe('example reducer', () => {
           isSent: false,
         },
         messageError: '',
+        fetchingStateError:'',
       }
       expect(reducers.reducer(state, action)).toEqual(expectedState);
     });
@@ -359,6 +375,7 @@ describe('example reducer', () => {
           isSent: false,
         },
         messageError: '',
+        fetchingStateError:'',
       }
       expect(reducers.reducer(state, action)).toEqual(expectedState);
     });
@@ -386,6 +403,7 @@ describe('example reducer', () => {
           isSent: true,
         },
         messageError: '',
+        fetchingStateError:'',
       }
       expect(reducers.reducer(state, action)).toEqual(expectedState);
     });
@@ -409,6 +427,7 @@ describe('example reducer', () => {
           isSent: false,
         },
         messageError: 'error',
+        fetchingStateError:'',
       }
       expect(reducers.reducer(state, action)).toEqual(expectedState);
     });
@@ -429,6 +448,7 @@ describe('example reducer', () => {
           isSent: false,
         },
         messageError: '',
+        fetchingStateError:'',
       }
       expect(reducers.reducer(state, action)).toEqual(expectedState);
     });
