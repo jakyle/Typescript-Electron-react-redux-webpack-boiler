@@ -41347,6 +41347,27 @@ function __importDefault(mod) {
 
 /***/ }),
 
+/***/ "./node_modules/typings-for-css-modules-loader/lib/index.js??ref--5-1!./node_modules/sass-loader/lib/loader.js??ref--5-2!./src/renderer/components/navbar/navbar.scss":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/typings-for-css-modules-loader/lib??ref--5-1!./node_modules/sass-loader/lib/loader.js??ref--5-2!./src/renderer/components/navbar/navbar.scss ***!
+  \*******************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(true);
+// imports
+
+
+// module
+exports.push([module.i, ".navbar__navbar-ugbsv {\n  background-color: black;\n  display: flex;\n  justify-content: space-evenly;\n  align-items: center;\n  height: 3rem; }\n  .navbar__navbar-ugbsv a {\n    color: white;\n    text-decoration: none; }\n  .navbar__navbar-ugbsv a:hover {\n    color: lightblue; }\n  .navbar__navbar-ugbsv a:focus {\n    color: yellow; }\n", "", {"version":3,"sources":["C:/Users/jimmy/Documents/myProjects/Typescript-Electron-react-redux-webpack-boiler/src/renderer/components/navbar/src/renderer/components/navbar/navbar.scss"],"names":[],"mappings":"AAAA;EACE,wBAAuB;EACvB,cAAa;EACb,8BAA6B;EAC7B,oBAAmB;EACnB,aAAY,EAWb;EAhBD;IAOM,aAAY;IACZ,sBAAqB,EACtB;EATL;IAWM,iBAAgB,EACjB;EAZL;IAcM,cAAa,EACd","file":"navbar.scss","sourcesContent":[".navbar {\r\n  background-color: black;\r\n  display: flex;\r\n  justify-content: space-evenly;\r\n  align-items: center;\r\n  height: 3rem;\r\n    a {\r\n      color: white;\r\n      text-decoration: none;\r\n    }\r\n    a:hover {\r\n      color: lightblue;\r\n    }\r\n    a:focus {\r\n      color: yellow;\r\n    }\r\n}"],"sourceRoot":""}]);
+
+// exports
+exports.locals = {
+	"navbar": "navbar__navbar-ugbsv"
+};
+
+/***/ }),
+
 /***/ "./node_modules/typings-for-css-modules-loader/lib/index.js??ref--5-1!./node_modules/sass-loader/lib/loader.js??ref--5-2!./src/renderer/containers/app.scss":
 /*!*********************************************************************************************************************************************************!*\
   !*** ./node_modules/typings-for-css-modules-loader/lib??ref--5-1!./node_modules/sass-loader/lib/loader.js??ref--5-2!./src/renderer/containers/app.scss ***!
@@ -41560,6 +41581,36 @@ module.exports = __webpack_require__.p + "src/assets/images/logo.png";
 
 /***/ }),
 
+/***/ "./src/renderer/components/navbar/navbar.scss":
+/*!****************************************************!*\
+  !*** ./src/renderer/components/navbar/navbar.scss ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/typings-for-css-modules-loader/lib??ref--5-1!../../../../node_modules/sass-loader/lib/loader.js??ref--5-2!./navbar.scss */ "./node_modules/typings-for-css-modules-loader/lib/index.js??ref--5-1!./node_modules/sass-loader/lib/loader.js??ref--5-2!./src/renderer/components/navbar/navbar.scss");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./src/renderer/components/navbar/navbar.tsx":
 /*!***************************************************!*\
   !*** ./src/renderer/components/navbar/navbar.tsx ***!
@@ -41572,9 +41623,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _navbar_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./navbar.scss */ "./src/renderer/components/navbar/navbar.scss");
+/* harmony import */ var _navbar_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_navbar_scss__WEBPACK_IMPORTED_MODULE_2__);
 
 
-const Navbar = (props) => react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", null,
+
+const Navbar = (props) => react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: _navbar_scss__WEBPACK_IMPORTED_MODULE_2___default.a.navbar },
     react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: '/' }, "Home"),
     react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: '/test' }, "Test"));
 /* harmony default export */ __webpack_exports__["default"] = (Navbar);
