@@ -28,7 +28,9 @@ export const rootReducer = combineReducers<ApplicationState>({
 export const store: Store<ApplicationState> = createStore(
   rootReducer, 
   /* initialState, */ 
-  composeWithDevTools(applyMiddleware(epicMiddleware))
+  composeWithDevTools(applyMiddleware(
+    epicMiddleware
+  ))
 );
 
 ipcRenderer.on('request-state', (event: Event) => {

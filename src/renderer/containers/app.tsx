@@ -6,6 +6,7 @@ import { ExampleActions } from '../store/example/types';
 import { incrementNumber, decrementNumber, apiCallRequest, messageCallRequest, initialStateRequest, saveStatePost } from '../store/example/action';
 import logo from '../../assets/images/logo.png';
 import Message from '../../shared/models/message';
+import styles from './app.scss';
 
 interface AppProps { };
 interface StoreProps {
@@ -41,7 +42,6 @@ class App extends React.Component<AllAppProps, AppState> {
       isSent: false
     } 
   }
-
 
   public componentDidMount() {
     window.addEventListener('beforeunload', this.handleUnload)
@@ -82,29 +82,29 @@ class App extends React.Component<AllAppProps, AppState> {
     const { number, dog, apiError, fetching, message, messageError } = this.props;
     
     return (
-      <div className="App">
+      <div className={styles.app}>
         <img src={dog ? dog : logo} height={100} width={150}/> 
         {dog ? (
-          <p className="App-intro">Keep clicking for new dogs</p>
+          <p>Keep clicking for new dogs</p>
         ) : (
-          <p className="App-intro">Replace the React icon with a dog!</p>
+          <p>Replace the React icon with a dog!</p>
         )}
 
         {fetching ? (
-          <button disabled>Fetching...</button>
+          <button className={styles.button} disabled>Fetching...</button>
         ) : (
-          <button onClick={this.handleDogAPIButtonClick}>Request a Dog</button>
+          <button className={styles.button} onClick={this.handleDogAPIButtonClick}>Request a Dog</button>
         )}
 
         {apiError && <p style={{ color: "red" }}>Uh oh - something went wrong!</p>}
         
         <div>
-          <button onClick={this.handleIncrementButtonClick}>Increment</button>
-          <button onClick={this.handleDecrementButtonClick}>Decrement</button>  
+          <button className={styles.button} onClick={this.handleIncrementButtonClick}>Increment</button>
+          <button className={styles.button} onClick={this.handleDecrementButtonClick}>Decrement</button>  
         </div>
         <h1>{number}</h1>
         {message.content ? <h1>{message.content}</h1> : null}
-        <button onClick={this.handleMessageButtonClick}>Get Message</button>
+        <button className={styles.button} onClick={this.handleMessageButtonClick}>Get Message</button>
       </div>
     );
   }

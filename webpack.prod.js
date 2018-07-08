@@ -73,8 +73,24 @@ let rendererConfig = {
                 test: /\.(scss|css)$/,
                 use: [
                     'style-loader',
-                    'css-loader?sourceMap',
-                    'sass-loader?sourceMap',
+                    {
+                        loader: 'typings-for-css-modules-loader',
+                        options: {
+                            sourceMap: true,
+                            importLoaders: 1,
+                            modules: true,
+                            namedExport: true,
+                            camelCalse: true,
+                            localIdentName: '[name]__[local]-[hash:base64:5]'
+                        }
+                    },
+                    {
+                        loader:'sass-loader?sourceMap',
+                        options: {
+                            sourceMap: true,
+                            importLoaders: 2,
+                        }
+                    }
                 ],
             },
             {

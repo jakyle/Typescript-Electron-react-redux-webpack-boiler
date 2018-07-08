@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
 
 let mainConfig = {
     mode: 'development',
@@ -43,6 +44,9 @@ let mainConfig = {
             },
         ],
     },
+    plugins: [
+        new webpack.WatchIgnorePlugin([/scss\.d\.ts$/]),
+    ]
 };
 
 let rendererConfig = {
@@ -75,8 +79,24 @@ let rendererConfig = {
                 test: /\.(scss|css)$/,
                 use: [
                     'style-loader',
-                    'css-loader?sourceMap',
-                    'sass-loader?sourceMap',
+                    {
+                        loader: 'typings-for-css-modules-loader',
+                        options: {
+                            sourceMap: true,
+                            importLoaders: 1,
+                            modules: true,
+                            namedExport: true,
+                            camelCalse: true,
+                            localIdentName: '[name]__[local]-[hash:base64:5]'
+                        }
+                    },
+                    {
+                        loader:'sass-loader?sourceMap',
+                        options: {
+                            sourceMap: true,
+                            importLoaders: 2,
+                        }
+                    }
                 ],
             },
             {
@@ -96,6 +116,7 @@ let rendererConfig = {
         ],
     },
     plugins: [
+        new webpack.WatchIgnorePlugin([/scss\.d\.ts$/]),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, './src/renderer/index.html'),
         }),
