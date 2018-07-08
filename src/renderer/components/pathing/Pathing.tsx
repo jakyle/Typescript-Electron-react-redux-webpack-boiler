@@ -8,13 +8,13 @@ interface PathingProps {
 }
 
 const Pathing: React.SFC<PathingProps> = () => 
-      <>
-        <Navbar />
-        <Switch>
-          <Route path="/" exact={true} component={App}/>
-          <Route path="/test" render={() => <h3>Test</h3>}/>
-          <Redirect to="/" />
-        </Switch>
-      </>;
+  <>
+    <Navbar />
+    <Switch>
+      <Route path="/" exact={true} component={App}/>
+      <Route path="/test" render={() => <h3>Test</h3>}/>
+      <Redirect to="/" />
+    </Switch>
+  </>;
 
 export default Pathing;
